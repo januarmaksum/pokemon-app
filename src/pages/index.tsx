@@ -1,7 +1,5 @@
 import Layout from "@/components/layout";
-import ThemeSwitch from "@/components/ThemeSwitch";
 import { getPokemonList } from "@/services/pokemonService";
-import { PokemonList } from "@/interfaces";
 import PokemonCard from "@/components/PokemonCard";
 import { GetServerSideProps } from "next";
 import axios from "axios";
