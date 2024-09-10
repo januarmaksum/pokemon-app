@@ -14,6 +14,6 @@ export const getPokemonList = async (
     return response.data;
   } catch (error) {
     console.error("Error fetching Pokémon list:", error);
-    return null; // Return null or throw an error, based on your handling preference
+    return null;
   }
 };

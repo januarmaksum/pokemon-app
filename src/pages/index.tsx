@@ -40,7 +40,6 @@ export default function Home({ pokemonDetails, error }: HomeProps) {
   );
 }
 
-// Fetch Pokémon data on the server side
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const pokemonList = await getPokemonList(9, 0);

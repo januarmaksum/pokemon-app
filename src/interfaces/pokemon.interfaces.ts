@@ -10,7 +10,7 @@ export interface PokemonBasicInfo {
   url: string;
 }
 
-// You can add more interfaces here as needed, for example:
+
 export interface PokemonDetail {
   id: number;
   name: string;
@@ -21,7 +21,5 @@ export interface PokemonDetail {
             front_default: string
         }
     }
-    // Add other sprite properties as needed
   };
-  // Add other properties from the detailed Pokemon response as needed
 }
