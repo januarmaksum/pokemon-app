@@ -1,10 +1,9 @@
-// src/components/Layout.tsx
 import { ReactNode } from "react";
 import Head from "next/head";
 
 interface LayoutProps {
   children: ReactNode;
-  title?: string;
+  title: string;
 }
 
 const Layout = ({ children, title = "" }: LayoutProps) => {
