@@ -1,4 +1,4 @@
-import Layout from "@/components/layout";
+import Layout from "@/components/Layout";
 import { getPokemonList } from "@/services/pokemonService";
 import PokemonCard from "@/components/PokemonCard";
 import { GetServerSideProps } from "next";

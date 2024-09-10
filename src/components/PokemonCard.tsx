@@ -5,9 +5,14 @@ interface PokemonCardProps {
   name: string;
   id?: number;
   imageUrl: string;
+  nickname?: string;
 }
 
-export default function PokemonCard({ name, imageUrl }: PokemonCardProps) {
+export default function PokemonCard({
+  name,
+  imageUrl,
+  nickname,
+}: PokemonCardProps) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -27,9 +32,10 @@ export default function PokemonCard({ name, imageUrl }: PokemonCardProps) {
         height={230}
       />
       <div className="p-4 text-center">
-        <h2 className="text-xl font-semibold capitalize text-gray-800 dark:text-white">
+        <h2 className="text-xl font-semibold capitalize text-gray-800 dark:text-white text-balance">
           {name}
         </h2>
+        {nickname && <span>({nickname})</span>}
       </div>
     </div>
   );

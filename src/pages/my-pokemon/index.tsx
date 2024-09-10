@@ -1,18 +1,20 @@
-// src/pages/my-pokemon/index.tsx
+"use client";
 
-import { useState, useEffect } from "react";
-import Layout from "@/components/layout";
+import * as React from "react";
+import Layout from "@/components/Layout";
+import PokemonCard from "@/components/PokemonCard";
 
 interface Pokemon {
   name: string;
   id: number;
   imageUrl: string;
+  nickname?: string;
 }
 
 export default function MyPokemon() {
-  const [myPokemon, setMyPokemon] = useState<Pokemon[]>([]);
+  const [myPokemon, setMyPokemon] = React.useState<Pokemon[]>([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const storedPokemon = localStorage.getItem("myPokemon");
     if (storedPokemon) {
       setMyPokemon(JSON.parse(storedPokemon));
@@ -26,17 +28,15 @@ export default function MyPokemon() {
         {myPokemon.length === 0 ? (
           <p className="text-lg">You haven't caught any Pokémon yet.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
             {myPokemon.map((pokemon) => (
-              <div key={pokemon.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
-                <img
-                  src={pokemon.imageUrl}
-                  alt={pokemon.name}
-                  className="w-full h-32 object-contain"
-                />
-                <h2 className="text-xl font-semibold capitalize">{pokemon.name}</h2>
-                <p>ID: {pokemon.id}</p>
-              </div>
+              <PokemonCard
+                key={pokemon.id}
+                name={pokemon.name}
+                id={pokemon.id}
+                imageUrl={pokemon.imageUrl}
+                nickname={pokemon.nickname}
+              />
             ))}
           </div>
         )}
