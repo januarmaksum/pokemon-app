@@ -1,5 +1,6 @@
 import * as React from "react";
 import Head from "next/head";
+import Header from "./Header";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -14,6 +15,7 @@ const Layout = ({ children, title = "" }: LayoutProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
       </Head>
+      <Header />
       {children}
     </>
   );
