@@ -82,7 +82,7 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
           ) : success ? (
             <div className="mt-4">
               <h2 className="text-xl font-bold">
-                You've caught {pokemon.name}!
+                You&apos;ve caught {pokemon.name}!
               </h2>
               <input
                 type="text"
