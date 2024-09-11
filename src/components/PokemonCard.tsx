@@ -49,7 +49,7 @@ export default function PokemonCard({
       <Image
         src={imageUrl}
         alt={name}
-        className="w-full h-28 md:h-32 object-contain"
+        className="w-full h-28 md:h-32 object-contain px-4"
         width={230}
         height={230}
       />
