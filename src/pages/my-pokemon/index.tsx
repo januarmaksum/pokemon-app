@@ -21,6 +21,14 @@ export default function MyPokemon() {
     }
   }, []);
 
+  const handleDelete = (nickname: string) => {
+    const updatedList = myPokemon.filter(
+      (pokemon) => pokemon.nickname !== nickname
+    );
+    setMyPokemon(updatedList);
+    localStorage.setItem("myPokemon", JSON.stringify(updatedList));
+  };
+
   return (
     <Layout title="My Pokémon">
       <div className="container max-w-3xl mx-auto px-4 mt-4">
@@ -32,11 +40,12 @@ export default function MyPokemon() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
               {myPokemon.map((pokemon) => (
                 <PokemonCard
-                  key={pokemon.id}
+                  key={pokemon.nickname}
                   name={pokemon.name}
                   id={pokemon.id}
                   imageUrl={pokemon.imageUrl}
                   nickname={pokemon.nickname}
+                  onDelete={handleDelete}
                 />
               ))}
             </div>

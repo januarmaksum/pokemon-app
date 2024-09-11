@@ -4,6 +4,8 @@ import axios from "axios";
 import Layout from "@/components/Layout";
 import { ParsedUrlQuery } from "querystring";
 import Image from "next/image";
+import useToast from "@/components/Toast";
+import { PokemonDetail } from "@/interfaces";
 
 interface PokemonDetailPageProps {
   pokemon: {
@@ -16,15 +18,23 @@ interface PokemonDetailPageProps {
 }
 
 export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
+  const showToast = useToast();
   const [caught, setCaught] = React.useState(false);
   const [nickname, setNickname] = React.useState("");
-  const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState("");
 
   const catchPokemon = () => {
     const successChance = Math.random() < 0.5; // 50% chance
-    setSuccess(successChance);
-    setCaught(true);
+    setCaught(successChance);
+    setNickname("");
+
+    showToast.dismiss();
+
+    if (successChance) {
+      showToast.success(`You caught ${pokemon.name}!`);
+    } else {
+      showToast.error("Failed to catch Pokémon. Try again!");
+    }
   };
 
   const handleNicknameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +46,17 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
       setError("Please provide a nickname.");
       return;
     }
+    const storedPokemon = JSON.parse(localStorage.getItem("myPokemon") || "[]");
+    const nicknameExists = storedPokemon.some(
+      (p: PokemonDetail) => p.nickname === nickname
+    );
+
+    if (nicknameExists) {
+      showToast.dismiss();
+      showToast.error(`Nickname "${nickname}" already exists!`);
+      return;
+    }
+
     setError("");
 
     const newPokemon = {
@@ -45,7 +66,6 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
       nickname,
     };
 
-    const storedPokemon = JSON.parse(localStorage.getItem("myPokemon") || "[]");
     localStorage.setItem(
       "myPokemon",
       JSON.stringify([...storedPokemon, newPokemon])
@@ -53,6 +73,8 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
 
     setCaught(false);
     setNickname("");
+    showToast.dismiss();
+    showToast.success(`${pokemon.name} has been caught and saved!`);
   };
 
   return (
@@ -72,37 +94,43 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
           <p>Height: {pokemon.height} decimetres</p>
           <p>Weight: {pokemon.weight} hectograms</p>
 
-          {!caught ? (
-            <button
-              onClick={catchPokemon}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-            >
-              Catch Pokémon
-            </button>
-          ) : success ? (
-            <div className="mt-4">
-              <h2 className="text-xl font-bold">
-                You&apos;ve caught {pokemon.name}!
-              </h2>
-              <input
-                type="text"
-                placeholder="Enter a nickname"
-                value={nickname}
-                onChange={handleNicknameChange}
-                className="mt-2 p-2 border rounded"
-              />
-              <button
-                onClick={handleCatchSubmit}
-                className="ml-2 px-4 py-2 bg-green-500 text-white rounded"
-              >
-                Save Pokémon
-              </button>
-              {error && <p className="text-red-500">{error}</p>}
+          <button
+            onClick={catchPokemon}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Catch Pokémon
+          </button>
+
+          {caught && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+              <div className="bg-white dark:bg-dark-light rounded-lg p-6 max-w-sm w-full text-center">
+                <h2 className="text-xl font-bold mb-4">
+                  You&apos;ve caught {pokemon.name}!
+                </h2>
+                <input
+                  type="text"
+                  placeholder="Enter a nickname"
+                  value={nickname}
+                  onChange={handleNicknameChange}
+                  className="w-full p-2 border rounded mb-0"
+                />
+                {error && <p className="text-red-500 my-2">{error}</p>}
+                <div className="flex justify-center mt-4">
+                  <button
+                    onClick={() => setCaught(false)}
+                    className="mr-2 px-4 py-2 bg-gray-300 text-gray-800 rounded font-medium"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleCatchSubmit}
+                    className="px-4 py-2 bg-green-500 text-white rounded font-medium"
+                  >
+                    Save Pokémon
+                  </button>
+                </div>
+              </div>
             </div>
-          ) : (
-            <p className="mt-4 text-red-500">
-              Failed to catch Pokémon. Try again!
-            </p>
           )}
         </div>
       </div>

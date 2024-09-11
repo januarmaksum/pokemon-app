@@ -22,4 +22,5 @@ export interface PokemonDetail {
         }
     }
   };
+  nickname?: string;
 }

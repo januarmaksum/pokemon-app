@@ -2,6 +2,7 @@ import * as React from "react";
 import Head from "next/head";
 import Header from "./Header";
 import BottomBar from "./BottomBar";
+import { Toaster } from "react-hot-toast";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ const Layout = ({ children, title = "" }: LayoutProps) => {
       <Header />
       {children}
       <BottomBar />
+      <Toaster />
     </>
   );
 };
