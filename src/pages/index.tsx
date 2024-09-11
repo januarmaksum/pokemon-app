@@ -1,14 +1,70 @@
+import * as React from "react";
 import Layout from "@/components/Layout";
 import { getPokemonDetail, getPokemonList } from "@/services/pokemonService";
 import PokemonCard from "@/components/PokemonCard";
 import { GetServerSideProps } from "next";
+import { useInView } from "react-intersection-observer";
 
 interface HomeProps {
-  pokemonDetails: Array<{ name: string; id: number; imageUrl: string }>;
+  initialPokemon: Array<{ name: string; id: number; imageUrl: string }>;
   error: boolean;
 }
 
-export default function HomePage({ pokemonDetails, error }: HomeProps) {
+export default function HomePage({ initialPokemon, error }: HomeProps) {
+  const [pokemonDetails, setPokemonDetails] = React.useState(initialPokemon);
+  const [loading, setLoading] = React.useState(false);
+  const [hasMore, setHasMore] = React.useState(true);
+  const [offset, setOffset] = React.useState(12);
+
+  const { ref: loaderRef, inView } = useInView({
+    threshold: 1.0,
+  });
+
+  const fetchMorePokemon = React.useCallback(async () => {
+    if (loading || !hasMore) return;
+    setLoading(true);
+
+    try {
+      const newPokemonList = await getPokemonList(12, offset);
+      if (!newPokemonList || newPokemonList.results.length === 0) {
+        setHasMore(false);
+      } else {
+        const newPokemonDetails = await Promise.all(
+          newPokemonList.results.map(async (pokemon) => {
+            const pokemonDetail = await getPokemonDetail(pokemon.name);
+            return pokemonDetail
+              ? {
+                  name: pokemonDetail.name,
+                  id: pokemonDetail.id,
+                  imageUrl: pokemonDetail.imageUrl,
+                }
+              : undefined;
+          })
+        );
+        setPokemonDetails((prev) => [
+          ...prev,
+          ...(newPokemonDetails.filter(Boolean) as {
+            name: string;
+            id: number;
+            imageUrl: string;
+          }[]),
+        ]);
+        setOffset((prev) => prev + 12);
+      }
+    } catch (error) {
+      console.error("Error fetching Pokémon data:", error);
+      setHasMore(false);
+    } finally {
+      setLoading(false);
+    }
+  }, [loading, hasMore, offset]);
+
+  React.useEffect(() => {
+    if (inView) {
+      fetchMorePokemon();
+    }
+  }, [inView, fetchMorePokemon]);
+
   if (error) {
     return (
       <Layout title="Pokémon App">
@@ -33,6 +89,9 @@ export default function HomePage({ pokemonDetails, error }: HomeProps) {
               />
             )
           )}
+        </div>
+        <div ref={loaderRef} className="text-center pb-20">
+          {loading && <p>Loading more Pokémon...</p>}
         </div>
       </div>
     </Layout>
@@ -63,7 +122,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
     return {
       props: {
-        pokemonDetails,
+        initialPokemon: pokemonDetails,
         error: false,
       },
     };
@@ -71,7 +130,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     console.error("Error fetching Pokémon data:", error);
     return {
       props: {
-        pokemonDetails: [],
+        initialPokemon: [],
         error: true,
       },
     };
