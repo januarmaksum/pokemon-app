@@ -41,7 +41,7 @@ export default function HomePage({ pokemonDetails, error }: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const pokemonList = await getPokemonList(9, 0);
+    const pokemonList = await getPokemonList(12, 0);
 
     if (!pokemonList) {
       throw new Error("Pokemon list is empty");
