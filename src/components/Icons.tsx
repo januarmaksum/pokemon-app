@@ -1,5 +1,4 @@
 import { Moon, Sun, House, Trash2 } from "lucide-react";
-import Pokeball from "../assets/pokeball.png";
-import PokeballDark from "../assets/pokeball-dark.png";
+import PokeballIco from "../app/favicon.ico";
 
-export { Moon, Sun, House, Pokeball, PokeballDark, Trash2 };
+export { Moon, Sun, House, Trash2, PokeballIco };

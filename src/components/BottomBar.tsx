@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { House, Pokeball, PokeballDark } from "@/components/Icons";
+import { House, PokeballIco } from "@/components/Icons";
 
 export default function BottomBar() {
   return (
@@ -14,18 +14,10 @@ export default function BottomBar() {
       <Link href="/my-pokemon" legacyBehavior>
         <a className="flex justify-center items-center flex-col text-xs font-medium">
           <Image
-            src={Pokeball}
+            src={PokeballIco}
             alt="Pokeball"
             width={24}
             height={24}
-            className="hidden dark:block"
-          />
-          <Image
-            src={PokeballDark}
-            alt="Pokeball"
-            width={24}
-            height={24}
-            className="dark:hidden"
           />
           My Pokémon
         </a>
