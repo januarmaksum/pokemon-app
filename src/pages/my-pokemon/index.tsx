@@ -11,7 +11,7 @@ interface Pokemon {
   nickname?: string;
 }
 
-export default function MyPokemon() {
+export default function MyPokemonPage() {
   const [myPokemon, setMyPokemon] = React.useState<Pokemon[]>([]);
 
   React.useEffect(() => {

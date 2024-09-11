@@ -8,7 +8,7 @@ interface HomeProps {
   error: boolean;
 }
 
-export default function Home({ pokemonDetails, error }: HomeProps) {
+export default function HomePage({ pokemonDetails, error }: HomeProps) {
   if (error) {
     return (
       <Layout title="Pokémon App">
