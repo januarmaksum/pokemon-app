@@ -19,7 +19,7 @@ const CaughtPokemonModal: React.FC<CaughtPokemonModalProps> = ({
 }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-      <div className="bg-white dark:bg-dark-light rounded-lg p-6 max-w-sm w-full text-center">
+      <div className="bg-white dark:bg-dark-light rounded-lg p-6 max-w-sm w-full text-center mt-[-20rem]">
         <h2 className="text-xl font-bold mb-4">
           You&apos;ve caught {pokemonName}!
         </h2>
@@ -40,7 +40,7 @@ const CaughtPokemonModal: React.FC<CaughtPokemonModalProps> = ({
           </button>
           <button
             onClick={onSave}
-            className="px-4 py-2 bg-green-500 text-white rounded font-medium"
+            className="px-4 py-2 bg-green-700 text-white rounded font-medium flex-1"
           >
             Save Pokémon
           </button>

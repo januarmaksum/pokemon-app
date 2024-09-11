@@ -31,6 +31,7 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
     const successChance = Math.random() < 0.5; // 50% chance
     setCaught(successChance);
     setNickname("");
+    setError("");
 
     showToast.dismiss();
 
@@ -131,7 +132,7 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
               {pokemon.types.map((type) => (
                 <span
                   key={type.type.name}
-                  className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm"
+                  className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm capitalize"
                 >
                   {type.type.name}
                 </span>
