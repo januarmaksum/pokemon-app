@@ -23,22 +23,24 @@ export default function MyPokemon() {
 
   return (
     <Layout title="My Pokémon">
-      <div className="container max-w-3xl mx-auto px-4">
-        <h1 className="text-4xl font-bold my-6">My Pokémon</h1>
+      <div className="container max-w-3xl mx-auto px-4 mt-4">
         {myPokemon.length === 0 ? (
-          <p className="text-lg">You haven&apos;t caught any Pokémon yet.</p>
+          <p className="text-2xl font-bold mb-4 text-center">No Pokemon</p>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 my-6">
-            {myPokemon.map((pokemon) => (
-              <PokemonCard
-                key={pokemon.id}
-                name={pokemon.name}
-                id={pokemon.id}
-                imageUrl={pokemon.imageUrl}
-                nickname={pokemon.nickname}
-              />
-            ))}
-          </div>
+          <>
+            <h1 className="text-2xl font-bold mb-4">My Pokémon</h1>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
+              {myPokemon.map((pokemon) => (
+                <PokemonCard
+                  key={pokemon.id}
+                  name={pokemon.name}
+                  id={pokemon.id}
+                  imageUrl={pokemon.imageUrl}
+                  nickname={pokemon.nickname}
+                />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </Layout>

@@ -1,6 +1,7 @@
 import * as React from "react";
 import Head from "next/head";
 import Header from "./Header";
+import BottomBar from "./BottomBar";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ const Layout = ({ children, title = "" }: LayoutProps) => {
       </Head>
       <Header />
       {children}
+      <BottomBar />
     </>
   );
 };

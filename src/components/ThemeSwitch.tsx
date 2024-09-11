@@ -6,19 +6,17 @@ import { Moon, Sun } from "@/components/Icons";
 
 export default function ThemeSwitch() {
   const [mounted, setMounted] = React.useState(false);
-  const { theme, setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  React.useEffect(() => setMounted(true), []);
 
-  if (!mounted) {
-    return null;
+  if (!mounted) return null;
+
+  if (resolvedTheme === "dark") {
+    return <Sun onClick={() => setTheme("light")} className="cursor-pointer" />;
   }
 
-  return (
-    <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-      {theme === "dark" ? <Sun /> : <Moon />}
-    </button>
-  );
+  if (resolvedTheme === "light") {
+    return <Moon onClick={() => setTheme("dark")} className="cursor-pointer" />;
+  }
 }

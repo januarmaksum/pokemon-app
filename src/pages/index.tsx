@@ -13,7 +13,7 @@ export default function Home({ pokemonDetails, error }: HomeProps) {
   if (error) {
     return (
       <Layout title="Pokémon App">
-        <div className="container max-w-3xl mx-auto px-4 text-center">
+        <div className="container max-w-3xl mx-auto px-4 text-center my-4">
           <h2 className="text-2xl font-bold">Error fetching Pokémon data</h2>
         </div>
       </Layout>
@@ -22,8 +22,8 @@ export default function Home({ pokemonDetails, error }: HomeProps) {
 
   return (
     <Layout title="Pokémon App">
-      <div className="container max-w-3xl mx-auto px-4">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 my-6">
+      <div className="container max-w-3xl mx-auto px-4 mt-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
           {pokemonDetails.map(
             (pokemon: { name: string; id: number; imageUrl: string }) => (
               <PokemonCard

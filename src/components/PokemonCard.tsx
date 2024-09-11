@@ -22,7 +22,7 @@ export default function PokemonCard({
   return (
     <div
       onClick={handleClick}
-      className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden cursor-pointer"
+      className="bg-white dark:bg-dark-light rounded-lg shadow-md overflow-hidden cursor-pointer pt-6"
     >
       <Image
         src={imageUrl}

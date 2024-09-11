@@ -56,9 +56,9 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
   };
 
   return (
-    <Layout title={pokemon.name + ` - Pokédex`}>
-      <div className="container max-w-3xl mx-auto px-4">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <Layout title={pokemon.name + ` - Pokémon`}>
+      <div className="container max-w-3xl mx-auto px-4 mt-4">
+        <div className="bg-white dark:bg-dark-light rounded-lg shadow-md p-6">
           <Image
             src={pokemon.imageUrl}
             alt={pokemon.name}

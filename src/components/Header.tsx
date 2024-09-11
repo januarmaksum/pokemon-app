@@ -4,8 +4,8 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50 hidden md:block">
-      <nav className="container max-w-3xl mx-auto px-4 py-0 flex justify-between items-center">
+    <header className="bg-white dark:bg-dark shadow-md sticky top-0 z-50">
+      <nav className="container max-w-3xl mx-auto px-4 py-0 flex justify-center lg:justify-between items-center relative">
         <Link href="/" legacyBehavior>
           <a className="text-2xl font-bold text-gray-800 dark:text-white">
             <Image
@@ -15,18 +15,14 @@ export default function Header() {
               height={60}
               priority
               quality={100}
+              className="w-40 md:w-48"
             />
           </a>
         </Link>
 
-        <div className="flex justify-center space-x-6">
-          {/* <Link href="/" legacyBehavior>
-            <a className="text-gray-800 dark:text-white hover:text-blue-500">
-              Home
-            </a>
-          </Link> */}
+        <div className="flex justify-center space-x-6 absolute right-5">
           <Link href="/my-pokemon" legacyBehavior>
-            <a className="text-gray-800 dark:text-white hover:text-blue-500">
+            <a className="text-gray-800 dark:text-white hover:text-blue-500 hidden md:block">
               My Pokémon
             </a>
           </Link>
