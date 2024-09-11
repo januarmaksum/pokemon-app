@@ -6,6 +6,20 @@
 
 A simple web application built using React, Next.js, and TypeScript that allows users to view a list of Pokémon, see details about each Pokémon, and catch Pokémon to store in their own collection. This project uses the [PokéAPI](https://pokeapi.co/) to fetch Pokémon data and demonstrates modern web development practices, including a mobile-first design approach and client-side state management with local storage for data persistence.
 
+## Performance Results
+
+The application has been optimized for performance. Below are the screenshots of the PageSpeed Insights results for both mobile and desktop:
+
+| Mobile                                                                                               | Desktop                                                                                               |
+|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| ![PageSpeed Mobile](https://github.com/user-attachments/assets/34faf4ea-2240-4f31-aec2-b01f1372d616) | ![PageSpeed Desktop](https://github.com/user-attachments/assets/e87621e9-5a71-430b-9c83-eec395996fb3) |
+
+The app scores well in key performance areas, including:
+- Efficient image loading
+- Minimal render-blocking resources
+- Optimized for mobile devices
+
+
 ## Features
 
 - **Pokémon List Page**: Displays a list of Pokémon names and images. Clicking on a Pokémon navigates to its detail page.
