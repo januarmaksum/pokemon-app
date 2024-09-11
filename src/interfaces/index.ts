@@ -1,2 +1,2 @@
-export type { PokemonList, PokemonDetail } from "./pokemon.interfaces";
+export type { PokemonList, PokemonDetail, PokemonStats } from "./pokemon.interfaces";
 

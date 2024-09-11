@@ -8,7 +8,7 @@ export default function BottomBar() {
       <Link href="/" legacyBehavior>
         <a className="flex justify-center items-center flex-col text-xs font-medium">
           <House />
-          Home
+          Pokémon List
         </a>
       </Link>
       <Link href="/my-pokemon" legacyBehavior>

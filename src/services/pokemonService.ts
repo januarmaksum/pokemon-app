@@ -25,7 +25,7 @@ export const getPokemonDetail = async (
     const response = await axios.get<PokemonDetail>(
       `${BASE_URL}/pokemon/${slug}`
     );
-    const { id, name, height, weight, sprites, types, moves } = response.data;
+    const { id, name, height, weight, sprites, types, moves, stats } = response.data;
     const imageUrl =
       sprites.other.dream_world.front_default || sprites.front_default;
 
@@ -38,6 +38,7 @@ export const getPokemonDetail = async (
       imageUrl,
       types,
       moves,
+      stats,
     };
   } catch (error) {
     console.error("Error fetching Pokémon detail:", error);
