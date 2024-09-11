@@ -36,7 +36,7 @@ export default function PokemonCard({
   return (
     <div
       onClick={handleClick}
-      className="bg-white dark:bg-dark-light rounded-lg shadow-md overflow-hidden cursor-pointer pt-6 relative"
+      className="bg-white dark:bg-dark-light hover:dark:bg-gray-700 hover:bg-slate-300 rounded-lg shadow-md overflow-hidden cursor-pointer pt-6 relative"
     >
       {onDelete && (
         <button

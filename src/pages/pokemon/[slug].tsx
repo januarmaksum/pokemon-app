@@ -103,9 +103,9 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
             <div className="flex justify-center">
               <button
                 onClick={catchPokemon}
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded font-medium"
+                className="mt-4 px-4 py-2 dark:bg-yellow-500 bg-red-500 dark:text-black text-white rounded font-medium"
               >
-                Catch Pokémon
+                Try Catch!
               </button>
             </div>
 
