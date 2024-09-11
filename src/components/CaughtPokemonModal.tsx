@@ -19,7 +19,7 @@ const CaughtPokemonModal: React.FC<CaughtPokemonModalProps> = ({
 }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-      <div className="bg-white dark:bg-dark-light rounded-lg p-6 max-w-sm w-full text-center mt-[-20rem]">
+      <div className="bg-white dark:bg-dark-light rounded-lg p-6 max-w-sm w-full text-center mt-[-5rem]">
         <h2 className="text-xl font-bold mb-4">
           You&apos;ve caught {pokemonName}!
         </h2>
