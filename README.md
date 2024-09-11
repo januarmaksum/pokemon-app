@@ -1,3 +1,7 @@
+
+![image1asdfasdf](https://github.com/user-attachments/assets/479c8eda-05c4-4a8b-9647-fca593b37e5d)
+
+
 # Pokémon App
 
 A simple web application built using React, Next.js, and TypeScript that allows users to view a list of Pokémon, see details about each Pokémon, and catch Pokémon to store in their own collection. This project uses the [PokéAPI](https://pokeapi.co/) to fetch Pokémon data and demonstrates modern web development practices, including a mobile-first design approach and client-side state management with local storage for data persistence.
