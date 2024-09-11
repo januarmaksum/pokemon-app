@@ -1,11 +1,11 @@
 import * as React from "react";
 import { GetServerSideProps } from "next";
-import axios from "axios";
 import Layout from "@/components/Layout";
 import { ParsedUrlQuery } from "querystring";
 import Image from "next/image";
 import useToast from "@/components/Toast";
 import { PokemonDetail } from "@/interfaces";
+import { getPokemonDetail } from "@/services/pokemonService";
 
 interface PokemonDetailPageProps {
   pokemon: {
@@ -96,13 +96,13 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
 
           <button
             onClick={catchPokemon}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded font-medium"
           >
             Catch Pokémon
           </button>
 
           {caught && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
               <div className="bg-white dark:bg-dark-light rounded-lg p-6 max-w-sm w-full text-center">
                 <h2 className="text-xl font-bold mb-4">
                   You&apos;ve caught {pokemon.name}!
@@ -146,22 +146,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.params as Params;
 
   try {
-    const response = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${slug}`
-    );
-    const { id, name, height, weight, sprites } = response.data;
-    const imageUrl =
-      sprites.other.dream_world.front_default || sprites.front_default;
+    const pokemon = await getPokemonDetail(slug);
+
+    if (!pokemon) {
+      return {
+        notFound: true,
+      };
+    }
 
     return {
       props: {
-        pokemon: {
-          name,
-          id,
-          height,
-          weight,
-          imageUrl,
-        },
+        pokemon,
       },
     };
   } catch (error) {

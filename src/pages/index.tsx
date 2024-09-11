@@ -1,8 +1,7 @@
 import Layout from "@/components/Layout";
-import { getPokemonList } from "@/services/pokemonService";
+import { getPokemonDetail, getPokemonList } from "@/services/pokemonService";
 import PokemonCard from "@/components/PokemonCard";
 import { GetServerSideProps } from "next";
-import axios from "axios";
 
 interface HomeProps {
   pokemonDetails: Array<{ name: string; id: number; imageUrl: string }>;
@@ -45,14 +44,19 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const pokemonList = await getPokemonList(9, 0);
 
     if (!pokemonList) {
-      throw new Error("Pokemon list is null");
+      throw new Error("Pokemon list is empty");
     }
 
     const pokemonDetailsPromises = pokemonList.results.map(async (pokemon) => {
-      const detailsResponse = await axios.get(pokemon.url);
-      const { id, sprites } = detailsResponse.data;
-      const imageUrl = sprites.other.dream_world.front_default || sprites.front_default;
-      return { name: pokemon.name, id, imageUrl };
+      const pokemonDetail = await getPokemonDetail(pokemon.name);
+      if (!pokemonDetail) {
+        throw new Error(`Failed to fetch details for ${pokemon.name}`);
+      }
+      return {
+        name: pokemonDetail.name,
+        id: pokemonDetail.id,
+        imageUrl: pokemonDetail.imageUrl,
+      };
     });
 
     const pokemonDetails = await Promise.all(pokemonDetailsPromises);

@@ -22,7 +22,7 @@ export default function Header() {
 
         <div className="flex justify-center space-x-6 absolute right-5">
           <Link href="/my-pokemon" legacyBehavior>
-            <a className="text-gray-800 dark:text-white hover:text-blue-500 hidden md:block">
+            <a className="text-gray-800 dark:text-white hover:text-blue-500 hidden md:block font-bold">
               My Pokémon
             </a>
           </Link>
