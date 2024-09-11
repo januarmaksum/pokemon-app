@@ -54,10 +54,10 @@ export default function PokemonCard({
         height={230}
       />
       <div className="p-4 text-center">
-        <h2 className="text-sm md:text-xl font-semibold capitalize text-gray-800 dark:text-white text-balance">
+        <h3 className="text-sm md:text-xl font-semibold capitalize text-gray-800 dark:text-white text-balance">
           {name}
-        </h2>
-        {nickname && <span>({nickname})</span>}
+        </h3>
+        {nickname && <div className="text-sm md:text-xl text-balance">({nickname})</div>}
       </div>
     </div>
   );
