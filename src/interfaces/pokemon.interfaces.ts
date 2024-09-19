@@ -16,7 +16,7 @@ export interface PokemonDetail {
   sprites: {
     front_default: string;
     other: {
-      dream_world: {
+      ["official-artwork"]: {
         front_default: string;
       };
     };

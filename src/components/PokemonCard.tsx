@@ -11,6 +11,7 @@ interface PokemonCardProps {
 }
 
 export default function PokemonCard({
+  id,
   name,
   imageUrl,
   nickname,
@@ -38,10 +39,11 @@ export default function PokemonCard({
       onClick={handleClick}
       className="bg-white dark:bg-dark-light hover:dark:bg-gray-700 hover:bg-slate-300 rounded-lg shadow-md overflow-hidden cursor-pointer pt-6 relative"
     >
+      <div className="absolute top-1 left-1 text-xs text-gray-400">#{id}</div>
       {onDelete && (
         <button
           onClick={handleDelete}
-          className="absolute top-2 right-2 p-1 text-gray-500 hover:text-red-500 transition-colors"
+          className="absolute top-1 right-1 p-1 text-gray-500 hover:text-red-500 transition-colors"
         >
           <Trash2 className="w-5 h-5" />
         </button>
@@ -57,7 +59,9 @@ export default function PokemonCard({
         <h3 className="text-sm md:text-xl font-semibold capitalize text-gray-800 dark:text-white text-balance">
           {name}
         </h3>
-        {nickname && <div className="text-sm md:text-xl text-balance">({nickname})</div>}
+        {nickname && (
+          <div className="text-sm md:text-xl text-balance">({nickname})</div>
+        )}
       </div>
     </div>
   );
