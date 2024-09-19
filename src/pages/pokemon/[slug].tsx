@@ -8,7 +8,8 @@ import { ParsedUrlQuery } from "querystring";
 import Image from "next/image";
 import { PokemonDetail, PokemonStats } from "@/interfaces";
 import { getPokemonDetail } from "@/services/pokemonService";
-import { useRouter } from "next-nprogress-bar";
+import { useRouter } from "next/router";
+import { capitalizeFirstLetter } from "@/utils";
 
 interface PokemonDetailPageProps {
   pokemon: Pick<
@@ -26,6 +27,15 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
   const [caught, setCaught] = React.useState(false);
   const [nickname, setNickname] = React.useState("");
   const [error, setError] = React.useState("");
+
+  React.useEffect(() => {
+    const { asPath } = router;
+    const lowerCasePath = asPath.toLowerCase();
+
+    if (asPath !== lowerCasePath) {
+      router.replace(lowerCasePath);
+    }
+  }, [router]);
 
   const catchPokemon = () => {
     const successChance = Math.random() < 0.5; // 50% chance
@@ -80,11 +90,11 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
     setNickname("");
     showToast.dismiss();
     showToast.success(`${pokemon.name} has been caught and saved!`);
-    router.push('/my-pokemon');
+    router.push("/my-pokemon");
   };
 
   return (
-    <Layout title={pokemon.name + ` - Pokémon`}>
+    <Layout title={capitalizeFirstLetter(pokemon.name) + ` - Pokémon`}>
       <div className="container max-w-3xl mx-auto px-4 mt-4 flex sm:gap-4 flex-wrap sm:flex-nowrap pb-8">
         <div className="w-full sm:w-1/2">
           <div className="bg-white dark:bg-dark-light rounded-lg shadow-md p-6 mb-4">
@@ -183,7 +193,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.params as Params;
 
   try {
-    const pokemon = await getPokemonDetail(slug);
+    const pokemon = await getPokemonDetail(slug.toLowerCase());
 
     if (!pokemon) {
       return {

@@ -20,6 +20,16 @@ export default function HomePage({ initialPokemon, error }: HomeProps) {
     threshold: 1.0,
   });
 
+  React.useEffect(() => {
+    const cachedPokemon = sessionStorage.getItem("pokemonData");
+    const cachedOffset = sessionStorage.getItem("pokemonOffset");
+
+    if (cachedPokemon) {
+      setPokemonDetails(JSON.parse(cachedPokemon));
+      setOffset(parseInt(cachedOffset || "12", 10));
+    }
+  }, []);
+
   const fetchMorePokemon = React.useCallback(async () => {
     if (loading || !hasMore) return;
     setLoading(true);
@@ -41,14 +51,20 @@ export default function HomePage({ initialPokemon, error }: HomeProps) {
               : undefined;
           })
         );
-        setPokemonDetails((prev) => [
-          ...prev,
+
+        const updatedPokemonDetails = [
+          ...pokemonDetails,
           ...(newPokemonDetails.filter(Boolean) as {
             name: string;
             id: number;
             imageUrl: string;
           }[]),
-        ]);
+        ];
+
+        sessionStorage.setItem("pokemonData", JSON.stringify(updatedPokemonDetails));
+        sessionStorage.setItem("pokemonOffset", (offset + 12).toString());
+
+        setPokemonDetails(updatedPokemonDetails);
         setOffset((prev) => prev + 12);
       }
     } catch (error) {
@@ -57,7 +73,7 @@ export default function HomePage({ initialPokemon, error }: HomeProps) {
     } finally {
       setLoading(false);
     }
-  }, [loading, hasMore, offset]);
+  }, [loading, hasMore, offset, pokemonDetails]);
 
   React.useEffect(() => {
     if (inView) {

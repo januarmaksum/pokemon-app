@@ -39,7 +39,9 @@ export default function PokemonCard({
       onClick={handleClick}
       className="bg-white dark:bg-dark-light hover:dark:bg-gray-700 hover:bg-slate-300 rounded-lg shadow-md overflow-hidden cursor-pointer pt-6 relative"
     >
-      <div className="absolute top-1 left-1 text-xs text-gray-400">#{id}</div>
+      <div className="absolute top-1 left-1 text-xs text-gray-400">
+        #{String(id).padStart(4, "0")}
+      </div>
       {onDelete && (
         <button
           onClick={handleDelete}
