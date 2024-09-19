@@ -8,7 +8,7 @@ import { ParsedUrlQuery } from "querystring";
 import Image from "next/image";
 import { PokemonDetail, PokemonStats } from "@/interfaces";
 import { getPokemonDetail } from "@/services/pokemonService";
-import { useRouter } from "next/router";
+import { useRouter } from "next-nprogress-bar";
 
 interface PokemonDetailPageProps {
   pokemon: Pick<

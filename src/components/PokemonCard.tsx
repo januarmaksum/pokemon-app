@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next-nprogress-bar";
 import { Trash2 } from "@/components/Icons";
 
 interface PokemonCardProps {
