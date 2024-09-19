@@ -9,8 +9,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Component {...pageProps} />
       <ProgressBar
         key={Date.now()}
-        height="2px"
-        color="#fffd00"
+        height="3px"
+        color="#FF0000"
         options={{ showSpinner: false }}
         shallowRouting
         disableSameURL
