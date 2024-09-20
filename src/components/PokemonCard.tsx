@@ -37,7 +37,7 @@ export default function PokemonCard({
   return (
     <div
       onClick={handleClick}
-      className="bg-white dark:bg-dark-light hover:dark:bg-gray-700 hover:bg-slate-300 rounded-lg shadow-md overflow-hidden cursor-pointer pt-6 relative"
+      className="bg-white dark:bg-dark-light lg:hover:dark:bg-gray-700 lg:hover:bg-slate-300 rounded-lg shadow-sm overflow-hidden cursor-pointer pt-6 relative"
     >
       <div className="absolute top-1 left-1 text-xs text-gray-400">
         #{String(id).padStart(4, "0")}
@@ -53,7 +53,7 @@ export default function PokemonCard({
       <Image
         src={imageUrl}
         alt={name}
-        className="w-full h-28 md:h-32 object-contain px-4"
+        className="w-full h-28 md:h-32 object-contain px-4 drop-shadow-xl"
         width={230}
         height={230}
       />

@@ -62,3 +62,17 @@ export interface PokemonStats {
     url: string;
   };
 }
+
+export interface PokemonSpecies {
+  evolution_chain: {
+    url: string;
+  };
+}
+
+export interface EvolutionChain {
+  species: {
+    name: string;
+    url: string;
+  };
+  evolves_to: EvolutionChain[];
+}

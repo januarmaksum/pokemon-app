@@ -2,6 +2,9 @@ import { toast, ToastOptions } from "react-hot-toast";
 
 const useToast = () => {
   const showToast = {
+    dismiss: () => {
+      toast.remove();
+    },
     success: (message: string, options?: ToastOptions) => {
       toast.success(message, {
         style: {
@@ -29,9 +32,6 @@ const useToast = () => {
         },
         ...options,
       });
-    },
-    dismiss: () => {
-      toast.remove();
     },
   };
 

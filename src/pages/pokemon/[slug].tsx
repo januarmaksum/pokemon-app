@@ -9,7 +9,10 @@ import Image from "next/image";
 import { PokemonDetail, PokemonStats } from "@/interfaces";
 import { getPokemonDetail } from "@/services/pokemonService";
 import { useRouter } from "next/router";
-import { capitalizeFirstLetter } from "@/utils";
+import { capitalizeFirstLetter, formatHeight, formatWeight } from "@/utils";
+import IconLabel from "@/components/ui/IconLabel";
+import { Ruler, Weight } from "@/components/Icons";
+import EvolutionChain from "@/components/EvolutionChain";
 
 interface PokemonDetailPageProps {
   pokemon: Pick<
@@ -97,11 +100,11 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
     <Layout title={capitalizeFirstLetter(pokemon.name) + ` - Pokémon`}>
       <div className="container max-w-3xl mx-auto px-4 mt-4 flex sm:gap-4 flex-wrap sm:flex-nowrap pb-8">
         <div className="w-full sm:w-1/2">
-          <div className="bg-white dark:bg-dark-light rounded-lg shadow-md p-6 mb-4">
+          <div className="bg-white dark:bg-dark-light rounded-lg shadow-sm p-6 mb-4">
             <Image
               src={pokemon.imageUrl}
               alt={pokemon.name}
-              className="w-full h-64 object-contain"
+              className="w-full h-64 object-contain drop-shadow-xl"
               width={250}
               height={250}
               priority
@@ -131,12 +134,22 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
             )}
           </div>
 
-          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-md">
-            <p>Height: {pokemon.height} decimetres</p>
-            <p>Weight: {pokemon.weight} hectograms</p>
+          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-sm">
+            <div className="flex gap-3">
+              <IconLabel
+                icon={<Ruler size={"18px"} className="rotate-45" />}
+                label={formatHeight(pokemon.height)}
+                title="Height"
+              />
+              <IconLabel
+                icon={<Weight size={"18px"} />}
+                label={formatWeight(pokemon.weight)}
+                title="Weight"
+              />
+            </div>
           </div>
 
-          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-md">
+          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-sm">
             <h2 className="text-2xl font-semibold">Types</h2>
             <div className="flex flex-wrap gap-2 mt-2">
               {pokemon.types.map((type) => (
@@ -151,7 +164,7 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
           </div>
         </div>
         <div className="w-full sm:w-1/2">
-          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-md">
+          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-sm">
             <h2 className="text-2xl font-semibold mb-2">Stats</h2>
             {pokemon.stats.map((stat) => (
               <PokemonStatsBar
@@ -162,7 +175,7 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
             ))}
           </div>
 
-          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mt-4 shadow-md">
+          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mt-4 shadow-sm">
             <h2 className="text-2xl font-semibold">Moves</h2>
             <div className="mt-2 overflow-y-auto">
               <ul className="list-disc list-inside">
@@ -180,6 +193,9 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
             </div>
           </div>
         </div>
+      </div>
+      <div className="hidden">
+        <EvolutionChain pokemonId={pokemon.id} />
       </div>
     </Layout>
   );
