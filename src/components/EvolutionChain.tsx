@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import * as React from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   getPokemonSpecies,
   getEvolutionChain,
@@ -6,30 +7,37 @@ import {
 import { extractEvolutionChain } from "@/utils";
 import Image from "next/image";
 
-type Evolution = {
-  name: string;
-  id: string;
-};
-
 interface EvolutionChainProps {
   pokemonId: number;
 }
 
+const fetchEvolutionData = async (pokemonId: number) => {
+  const speciesData = await getPokemonSpecies(pokemonId);
+  const evolutionData = await getEvolutionChain(
+    speciesData?.evolution_chain?.url.replace(/\/$/, "") || ""
+  );
+  return extractEvolutionChain(evolutionData.chain);
+};
+
 const EvolutionChain: React.FC<EvolutionChainProps> = ({ pokemonId }) => {
-  const [evolutions, setEvolutions] = useState<Evolution[]>([]);
+  const {
+    data: evolutions = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["pokemonEvolution", pokemonId],
+    queryFn: () => fetchEvolutionData(pokemonId),
+    refetchOnWindowFocus: false
+  });
 
-  useEffect(() => {
-    const fetchEvolutionData = async () => {
-      const speciesData = await getPokemonSpecies(pokemonId);
-      const evolutionData = await getEvolutionChain(
-        speciesData?.evolution_chain?.url.replace(/\/$/, "") || ""
-      );
-      const extractedEvolutions = extractEvolutionChain(evolutionData.chain);
-      setEvolutions(extractedEvolutions);
-    };
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
-    fetchEvolutionData();
-  }, [pokemonId]);
+  if (isError) {
+    return <p>Error: {(error as Error).message}</p>;
+  }
 
   return (
     <div className="flex justify-center items-center gap-4">

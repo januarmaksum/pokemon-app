@@ -66,7 +66,6 @@ export const getPokemonSpecies = async (
 };
 
 export const getEvolutionChain = async (evolutionChainUrl: string) => {
-  console.log('evolutionChainUrl: ', evolutionChainUrl);
   try {
     const response = await axios.get(evolutionChainUrl);
     return response.data;

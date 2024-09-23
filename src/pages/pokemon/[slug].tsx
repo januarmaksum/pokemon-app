@@ -134,7 +134,7 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
             )}
           </div>
 
-          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-sm">
+          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-sm hidden">
             <div className="flex gap-3">
               <IconLabel
                 icon={<Ruler size={"18px"} className="rotate-45" />}
@@ -162,6 +162,7 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
               ))}
             </div>
           </div>
+          <EvolutionChain pokemonId={pokemon.id} />
         </div>
         <div className="w-full sm:w-1/2">
           <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-sm">
@@ -193,9 +194,6 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
             </div>
           </div>
         </div>
-      </div>
-      <div className="hidden">
-        <EvolutionChain pokemonId={pokemon.id} />
       </div>
     </Layout>
   );
