@@ -27,3 +27,5 @@ export const extractEvolutionChain = (chain: EvolutionChain) => {
 
   return evolutions;
 };
+
+export const removeDash = (str: string) => str.replace("-", " ");

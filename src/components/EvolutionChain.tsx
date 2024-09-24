@@ -4,8 +4,9 @@ import {
   getPokemonSpecies,
   getEvolutionChain,
 } from "@/services/pokemonService";
-import { extractEvolutionChain } from "@/utils";
+import { extractEvolutionChain, removeDash } from "@/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 interface EvolutionChainProps {
   pokemonId: number;
@@ -28,7 +29,7 @@ const EvolutionChain: React.FC<EvolutionChainProps> = ({ pokemonId }) => {
   } = useQuery({
     queryKey: ["pokemonEvolution", pokemonId],
     queryFn: () => fetchEvolutionData(pokemonId),
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {
@@ -40,18 +41,18 @@ const EvolutionChain: React.FC<EvolutionChainProps> = ({ pokemonId }) => {
   }
 
   return (
-    <div className="flex justify-center items-center gap-4">
+    <div className="flex justify-center items-center gap-4 mt-2 group">
       {evolutions.map((evolution) => (
-        <div key={evolution.id} className="text-center">
+        <Link href={evolution.name} key={evolution.id} className="text-center">
           <Image
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${evolution.id}.png`}
-            alt={evolution.name}
-            className="w-24 h-24"
+            alt={removeDash(evolution.name)}
+            className="w-24 h-24 drop-shadow-xl object-contain"
             width={96}
             height={96}
           />
-          <p className="capitalize">{evolution.name}</p>
-        </div>
+          <p className="capitalize text-sm md:text-base">{removeDash(evolution.name)}</p>
+        </Link>
       ))}
     </div>
   );

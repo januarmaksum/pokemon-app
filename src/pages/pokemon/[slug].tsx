@@ -9,7 +9,12 @@ import Image from "next/image";
 import { PokemonDetail, PokemonStats } from "@/interfaces";
 import { getPokemonDetail } from "@/services/pokemonService";
 import { useRouter } from "next/router";
-import { capitalizeFirstLetter, formatHeight, formatWeight } from "@/utils";
+import {
+  capitalizeFirstLetter,
+  formatHeight,
+  formatWeight,
+  removeDash,
+} from "@/utils";
 import IconLabel from "@/components/ui/IconLabel";
 import { Ruler, Weight } from "@/components/Icons";
 import EvolutionChain from "@/components/EvolutionChain";
@@ -49,7 +54,7 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
     showToast.dismiss();
 
     if (successChance) {
-      showToast.success(`You caught ${pokemon.name}!`);
+      showToast.success(`You caught ${removeDash(pokemon.name)}!`);
     } else {
       showToast.error("Failed to catch Pokémon. Try again!");
     }
@@ -92,25 +97,27 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
     setCaught(false);
     setNickname("");
     showToast.dismiss();
-    showToast.success(`${pokemon.name} has been caught and saved!`);
+    showToast.success(`${removeDash(pokemon.name)} has been caught and saved!`);
     router.push("/my-pokemon");
   };
 
   return (
-    <Layout title={capitalizeFirstLetter(pokemon.name) + ` - Pokémon`}>
+    <Layout
+      title={capitalizeFirstLetter(removeDash(pokemon.name)) + ` - Pokémon`}
+    >
       <div className="container max-w-3xl mx-auto px-4 mt-4 flex sm:gap-4 flex-wrap sm:flex-nowrap pb-8">
         <div className="w-full sm:w-1/2">
           <div className="bg-white dark:bg-dark-light rounded-lg shadow-sm p-6 mb-4">
             <Image
               src={pokemon.imageUrl}
-              alt={pokemon.name}
+              alt={removeDash(pokemon.name)}
               className="w-full h-64 object-contain drop-shadow-xl"
               width={250}
               height={250}
               priority
             />
             <h1 className="text-4xl font-bold capitalize text-center mt-4">
-              {pokemon.name}
+              {removeDash(pokemon.name)}
             </h1>
 
             <div className="flex justify-center">
@@ -124,7 +131,7 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
 
             {caught && (
               <CaughtPokemonModal
-                pokemonName={pokemon.name}
+                pokemonName={removeDash(pokemon.name)}
                 nickname={nickname}
                 error={error}
                 onNicknameChange={handleNicknameChange}
@@ -150,19 +157,9 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
           </div>
 
           <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-sm">
-            <h2 className="text-2xl font-semibold">Types</h2>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {pokemon.types.map((type) => (
-                <span
-                  key={type.type.name}
-                  className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm capitalize"
-                >
-                  {type.type.name}
-                </span>
-              ))}
-            </div>
+            <h2 className="text-2xl font-semibold">Evolutions</h2>
+            <EvolutionChain pokemonId={pokemon.id} />
           </div>
-          <EvolutionChain pokemonId={pokemon.id} />
         </div>
         <div className="w-full sm:w-1/2">
           <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-sm">
@@ -176,19 +173,33 @@ export default function PokemonDetailPage({ pokemon }: PokemonDetailPageProps) {
             ))}
           </div>
 
+          <div className="bg-white dark:bg-dark-light p-4 rounded-lg mb-4 shadow-sm">
+            <h2 className="text-2xl font-semibold">Types</h2>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {pokemon.types.map((type) => (
+                <span
+                  key={type.type.name}
+                  className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm capitalize"
+                >
+                  {type.type.name}
+                </span>
+              ))}
+            </div>
+          </div>
+
           <div className="bg-white dark:bg-dark-light p-4 rounded-lg mt-4 shadow-sm">
             <h2 className="text-2xl font-semibold">Moves</h2>
             <div className="mt-2 overflow-y-auto">
               <ul className="list-disc list-inside">
-                {pokemon.moves.slice(0, 8).map((move) => (
+                {pokemon.moves.slice(0, 3).map((move) => (
                   <li key={move.move.name} className="capitalize">
                     {move.move.name}
                   </li>
                 ))}
               </ul>
-              {pokemon.moves.length > 8 && (
+              {pokemon.moves.length > 3 && (
                 <p className="mt-2 text-sm text-gray-500">
-                  And {pokemon.moves.length - 8} more moves...
+                  And {pokemon.moves.length - 3} more moves...
                 </p>
               )}
             </div>

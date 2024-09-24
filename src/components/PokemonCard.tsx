@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next-nprogress-bar";
 import { Trash2 } from "@/components/Icons";
+import { removeDash } from "@/utils";
 
 interface PokemonCardProps {
   name: string;
@@ -59,7 +60,7 @@ export default function PokemonCard({
       />
       <div className="p-4 text-center">
         <h3 className="text-sm md:text-xl font-semibold capitalize text-gray-800 dark:text-white text-balance">
-          {name}
+          {removeDash(name)}
         </h3>
         {nickname && (
           <div className="text-sm md:text-xl text-balance">({nickname})</div>

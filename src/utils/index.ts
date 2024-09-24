@@ -1,1 +1,7 @@
-export { capitalizeFirstLetter, formatHeight, formatWeight, extractEvolutionChain } from "./utils";
+export {
+  capitalizeFirstLetter,
+  formatHeight,
+  formatWeight,
+  extractEvolutionChain,
+  removeDash,
+} from "./utils";
